@@ -77,9 +77,16 @@ export function NotificationCard({
 
   const readStyle = read ? '' : 'bl bw2 br2 b2 b--red ';
 
+  const transformMessageType = (value) => {
+    return value
+      .split('_')
+      .filter((v) => v !== 'NOTIFICATION')
+      .join(' ')
+      .toLowerCase();
+  };
   return (
     <Link to={`/inbox/message/${messageId}`} className={`no-underline `}>
-      <article className={`db base-font bg-white w-100 mb1 mh2 blue-dark mw8 ${readStyle}`}>
+      <article className={`db base-font bg-white w-100 mb1 blue-dark mw8 ${readStyle}`}>
         <div className="pv3 pr3 ba br1 b--grey-light">
           <div className={`fl dib w2 h3 mh3`}>
             <MessageAvatar messageType={messageType} fromUsername={fromUsername} size={'medium'} />
@@ -109,9 +116,9 @@ export function NotificationCard({
           {messageType !== null ? (
             <div
               className={`fr-l di-l dn f7 truncate ttc w4 pa1 ma1`}
-              title={messageType.toLowerCase().replace(/_/g, ' ')}
+              title={transformMessageType(messageType)}
             >
-              {messageType.toLowerCase().replace(/_/g, ' ')}
+              {transformMessageType(messageType)}
             </div>
           ) : null}
           {readOrListLink}
